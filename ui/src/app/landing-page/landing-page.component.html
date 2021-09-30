@@ -1,0 +1,31 @@
+<app-stack-panel spacing="30px"
+                 width="50%"
+                 margin_top="30px">
+  <app-stack-panel orientation="horizontal"
+                   spacing="30px"
+                   [disabled]="true">
+    <app-icon-button iconType="home"></app-icon-button>
+    <app-icon-button iconType="menu"></app-icon-button>
+    <app-icon-button iconType="close"></app-icon-button>
+    <app-icon-button iconType="add"></app-icon-button>
+    <app-icon-button iconType="remove"></app-icon-button>
+    <app-icon-button iconType="check_circle"></app-icon-button>
+    <app-icon-button iconType="highlight_off"></app-icon-button>
+  </app-stack-panel>
+  <app-progress-bar mode="indeterminate"
+                    progressText="Working">
+  </app-progress-bar>
+  <app-search-select [dataSource]="['hello', 'world', 'today']"
+                     title="Choose Option"
+                     placeholder="Search">
+  </app-search-select>
+  <app-date-select></app-date-select>
+  <app-radio-group [dataSource]="['radio option 1', 'radio option 2', 'radio option 3']"
+                   spacing="30px"
+                   orientation="horizontal">
+  </app-radio-group>
+  <app-table-select [dataSource]="['Test 1', 'Test 2', 'Test 3', 'amazing number 2']"
+                    [selectedItem]="this.selectedTableItem"
+                    (selectedItemChange)="this.tableSelectionChanged($event)">
+  </app-table-select>
+</app-stack-panel>

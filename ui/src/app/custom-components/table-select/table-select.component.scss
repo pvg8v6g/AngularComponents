@@ -1,0 +1,19 @@
+.scroll-area {
+  overflow: auto;
+}
+
+.table-non-selected-row:nth-child(even) {
+  background-color: #fcfcfc;
+}
+
+.table-non-selected-row:nth-child(even):hover {
+  background-color: #d2d2d2;
+}
+
+.table-non-selected-row:nth-child(odd):hover {
+  background-color: #d2d2d2;
+}
+
+.table-selected-row {
+  background: #d2d2d2;
+}

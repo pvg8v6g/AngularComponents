@@ -1,0 +1,34 @@
+<mat-form-field [appearance]="this.fillAppearance ? 'fill' : 'standard'"
+                style="width: 100%;"
+                [style.width]="this.formWidth">
+  <mat-label class="select-input"
+             [ngClass]="this.required && this.selectedItem == null ? 'required-field' : ''">
+    {{this.title}}
+  </mat-label>
+  <mat-select class="select-input"
+              [disabled]="this.disabled"
+              [placeholder]="this.title"
+              [(ngModel)]="this.selectedItem"
+              (ngModelChange)="this.onModelChange()">
+    <mat-option>
+      <ngx-mat-select-search [placeholderLabel]="this.placeholder"
+                             noEntriesFoundLabel="No Results"
+                             [formControl]="selectFilterCtrl">
+      </ngx-mat-select-search>
+    </mat-option>
+
+    <mat-option class="select-input"
+                *ngFor="let element of this.filtered"
+                [value]="element">
+      {{this.namePropertyName == null ? element : element[this.namePropertyName]}}
+    </mat-option>
+  </mat-select>
+  <button matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          [disabled]="this.disabled"
+          (click)="this.selectedItem=null; $event.stopPropagation()"
+          *ngIf="this.clearButton">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>

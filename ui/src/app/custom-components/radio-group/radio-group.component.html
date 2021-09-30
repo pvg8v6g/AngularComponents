@@ -1,0 +1,13 @@
+<mat-radio-group aria-labelledby="example-radio-group-label"
+                 [(ngModel)]="this.internalSelectedValue"
+                 (ngModelChange)="this.onModelChange()"
+                 style="user-select: none;">
+  <app-stack-panel [orientation]="this.orientation"
+                   [spacing]="this.spacing">
+    <mat-radio-button *ngFor="let value of this.dataSource"
+                      [value]="value"
+                      style="user-select: none;">
+      {{value}}
+    </mat-radio-button>
+  </app-stack-panel>
+</mat-radio-group>

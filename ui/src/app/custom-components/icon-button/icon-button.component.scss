@@ -1,0 +1,16 @@
+.icon {
+  cursor: pointer;
+  color: #121212;
+  user-select: none;
+}
+
+.icon:hover {
+  color: #ffd100;
+}
+
+.icon_disabled {
+  cursor: not-allowed;
+  color: #121212;
+  opacity: 0.5;
+  user-select: none;
+}

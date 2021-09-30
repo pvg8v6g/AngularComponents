@@ -1,0 +1,13 @@
+<div #root
+     [fxLayout]="this._orientation"
+     [fxLayoutAlign]="this._alignment"
+     [fxLayoutGap]="this.spacing"
+     [style.marginBottom]="this.margin_bottom"
+     [style.marginLeft]="this.margin_left"
+     [style.marginRight]="this.margin_right"
+     [style.marginTop]="this.margin_top"
+     [style.width]="this.width"
+     [style.height]="this.height"
+     [style.background]="this.background">
+  <ng-content></ng-content>
+</div>

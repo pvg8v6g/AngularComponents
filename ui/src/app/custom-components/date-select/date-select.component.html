@@ -1,0 +1,21 @@
+<mat-form-field appearance="fill"
+                style="width: 100%;"
+                [style.width]="this.formWidth">
+  <mat-label [ngClass]="this.required && this.selectedDate == null ? 'required-field' : ''">{{this.title}}</mat-label>
+  <input type="hidden"
+         [matDatepicker]="picker"
+         [(ngModel)]="this.selectedDate"
+         (ngModelChange)="this.onChange()">
+  <input #dateInput
+         matInput
+         [disabled]="this.disabled"
+         [ngModel]="this.dateString"
+         (ngModelChange)="this.dateStringChange($event)"
+         (keydown)="this.onKeypress($event)"
+         (click)="this.onClick()">
+  <mat-datepicker-toggle matSuffix
+                         [for]="picker"
+                         [disabled]="this.disabled">
+  </mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>

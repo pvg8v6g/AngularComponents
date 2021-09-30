@@ -1,0 +1,49 @@
+<app-stack-panel spacing="0.5vh">
+  <mat-form-field>
+    <mat-label>{{this.searchLabel}}</mat-label>
+    <app-stack-panel orientation="horizontal"
+                     spacing="5px">
+      <input [(ngModel)]="this.searchText"
+             (ngModelChange)="this.searchFilterChange()"
+             matInput
+             type="text">
+      <button mat-button
+              (click)="this.clearSearch()">
+        Clear
+      </button>
+    </app-stack-panel>
+  </mat-form-field>
+  <div style="overflow: auto;"
+       [style.width]="this.width"
+       [style.height]="this.height">
+    <mat-table matSort
+               (matSortChange)="this.onSortData($event)"
+               [dataSource]="this.internalDataSource">
+      <div *ngFor="let header of this.headerIds; index as i">
+        <ng-container [matColumnDef]="header">
+          <mat-header-cell mat-sort-header
+                           style="user-select: none;"
+                           *matHeaderCellDef>
+            {{this.headerLabels[i]}}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element"
+                    [ngClass]="!this.isCheckbox(element[header]) ? '' : 'check-icon'">
+            <mat-label *ngIf="!this.isCheckbox(element[header])">
+              {{this.getStringValue(element, header)}}
+            </mat-label>
+            <mat-icon *ngIf="this.isCheckbox(element[header])">
+              {{this.checkboxStyle(element[header])}}
+            </mat-icon>
+          </mat-cell>
+        </ng-container>
+      </div>
+
+      <mat-header-row *matHeaderRowDef="this.headerIds; sticky: true"></mat-header-row>
+      <mat-row style="cursor: pointer; user-select: none;"
+               *matRowDef="let row; columns: this.headerIds"
+               [ngClass]="this.selectedRow(row) ? 'table-selected-row' : 'table-non-selected-row'"
+               (click)="this.onTableSelectChange(row)">
+      </mat-row>
+    </mat-table>
+  </div>
+</app-stack-panel>
