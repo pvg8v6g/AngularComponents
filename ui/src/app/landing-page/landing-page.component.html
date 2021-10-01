@@ -1,31 +1,80 @@
 <app-stack-panel spacing="30px"
                  width="50%"
                  margin_top="30px">
+
   <app-stack-panel orientation="horizontal"
                    spacing="30px"
                    [disabled]="true">
-    <app-icon-button iconType="home"></app-icon-button>
-    <app-icon-button iconType="menu"></app-icon-button>
-    <app-icon-button iconType="close"></app-icon-button>
-    <app-icon-button iconType="add"></app-icon-button>
-    <app-icon-button iconType="remove"></app-icon-button>
-    <app-icon-button iconType="check_circle"></app-icon-button>
-    <app-icon-button iconType="highlight_off"></app-icon-button>
+    <app-icon-button iconType="home"
+                     (click)="this.homeAction()"
+                     tooltip="Home">
+    </app-icon-button>
+    <app-icon-button iconType="menu"
+                     (click)="this.menuAction()"
+                     tooltip="Menu">
+    </app-icon-button>
+    <app-icon-button iconType="close"
+                     (click)="this.closeAction()"
+                     tooltip="Close">
+    </app-icon-button>
+    <app-icon-button iconType="add"
+                     (click)="this.addAction()"
+                     tooltip="Add">
+    </app-icon-button>
+    <app-icon-button iconType="remove"
+                     (click)="this.removeAction()"
+                     tooltip="Remove">
+    </app-icon-button>
+    <app-icon-button iconType="check_circle"
+                     (click)="this.checkAction()"
+                     tooltip="Checked">
+    </app-icon-button>
+    <app-icon-button iconType="highlight_off"
+                     (click)="this.offAction()"
+                     tooltip="Not Checked">
+    </app-icon-button>
   </app-stack-panel>
+
   <app-progress-bar mode="indeterminate"
                     progressText="Working">
   </app-progress-bar>
-  <app-search-select [dataSource]="['hello', 'world', 'today']"
-                     title="Choose Option"
-                     placeholder="Search">
-  </app-search-select>
-  <app-date-select></app-date-select>
-  <app-radio-group [dataSource]="['radio option 1', 'radio option 2', 'radio option 3']"
+
+  <app-stack-panel orientation="horizontal"
+                   spacing="15px">
+    <app-search-select [dataSource]="['hello', 'world', 'today']"
+                       title="Choose Option"
+                       placeholder="Search"
+                       [(selectedItem)]="this.selectedDropdownItem">
+    </app-search-select>
+    <button mat-raised-button
+            (click)="this.dropdownValue()"
+            style="height: 40px; align-self: center;"
+            color="primary">
+      Get Dropdown Value
+    </button>
+  </app-stack-panel>
+
+  <app-stack-panel orientation="horizontal"
+                   spacing="15px">
+    <app-date-select [(selectedDate)]="this.selectedDate"></app-date-select>
+    <button mat-raised-button
+            (click)="this.getDateValue()"
+            style="height: 40px; align-self: center;"
+            color="primary">
+      Get Date Value
+    </button>
+  </app-stack-panel>
+
+  <app-radio-group [dataSource]="this.radioButtonOptions"
+                   [(selectedItem)]="this.selectedRadioButton"
+                   (selectedItemChange)="this.radioButtonSelect()"
                    spacing="30px"
                    orientation="horizontal">
   </app-radio-group>
+
   <app-table-select [dataSource]="['Test 1', 'Test 2', 'Test 3', 'amazing number 2']"
-                    [selectedItem]="this.selectedTableItem"
-                    (selectedItemChange)="this.tableSelectionChanged($event)">
+                    [(selectedItem)]="this.selectedTableValue"
+                    (selectedItemChange)="this.tableSelection()">
   </app-table-select>
+
 </app-stack-panel>

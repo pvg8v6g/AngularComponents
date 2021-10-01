@@ -5,6 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {LandingPageComponent} from "./landing-page/landing-page.component";
 import {SequenceModule} from "./sequence-containers/sequence.module";
 import {CustomComponentsModule} from "./custom-components/custom-components.module";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import {CustomComponentsModule} from "./custom-components/custom-components.modu
     BrowserModule,
     AppRoutingModule,
     SequenceModule,
-    CustomComponentsModule
+    CustomComponentsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [LandingPageComponent]

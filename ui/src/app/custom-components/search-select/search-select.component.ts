@@ -22,7 +22,7 @@ export class SearchSelectComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() disabled: boolean = false;
   @Input() fillAppearance: boolean = true;
   @Input() boldFont: boolean = false;
-  @Input() selectedItem!: any;
+  @Input() selectedItem: any = null;
   @Output() selectedItemChange = new EventEmitter<any>(true);
 
   public selectFilterCtrl: FormControl = new FormControl();
@@ -95,6 +95,11 @@ export class SearchSelectComponent implements OnInit, AfterViewInit, OnDestroy {
   // endregion
 
   // region Event Handlers
+
+  clearSelection() {
+    this.selectedItem = null;
+    this.selectedItemChange.emit(this.selectedItem);
+  }
 
   onModelChange() {
     this.selectedItemChange.emit(this.selectedItem);

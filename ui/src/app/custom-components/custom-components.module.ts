@@ -22,6 +22,7 @@ import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
 import {RadioGroupComponent} from "./radio-group/radio-group.component";
 import {MatRadioModule} from "@angular/material/radio";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -32,26 +33,27 @@ import {MatRadioModule} from "@angular/material/radio";
     IconButtonComponent,
     RadioGroupComponent
   ],
-  imports: [
-    SequenceModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatOptionModule,
-    MatIconModule,
-    NgxMatSelectSearchModule,
-    ReactiveFormsModule,
-    FormsModule,
-    CommonModule,
-    MatButtonModule,
-    BrowserAnimationsModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatInputModule,
-    MatProgressBarModule,
-    MatTableModule,
-    MatSortModule,
-    MatRadioModule
-  ],
+    imports: [
+        SequenceModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatOptionModule,
+        MatIconModule,
+        NgxMatSelectSearchModule,
+        ReactiveFormsModule,
+        FormsModule,
+        CommonModule,
+        MatButtonModule,
+        BrowserAnimationsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatProgressBarModule,
+        MatTableModule,
+        MatSortModule,
+        MatRadioModule,
+        MatTooltipModule
+    ],
   providers: [
     MatDatepickerModule,
     LayoutGapStyleBuilder

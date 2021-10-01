@@ -27,7 +27,7 @@
           mat-icon-button
           aria-label="Clear"
           [disabled]="this.disabled"
-          (click)="this.selectedItem=null; $event.stopPropagation()"
+          (click)="this.clearSelection(); $event.stopPropagation()"
           *ngIf="this.clearButton">
     <mat-icon>close</mat-icon>
   </button>

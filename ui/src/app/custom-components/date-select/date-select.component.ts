@@ -29,7 +29,7 @@ export class DateSelectComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // region Fields
 
-  @Input() selectedDate: Date;
+  @Input() selectedDate: Date = new Date();
   @Output() selectedDateChange = new EventEmitter<Date>(true);
   @Input() title: string = 'Choose Date'
   @Input() formWidth: string;
@@ -58,6 +58,7 @@ export class DateSelectComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.formControl = new FormControl(this.selectedDate);
+    this.selectedDateChange.emit(this.selectedDate);
     this.setDateString();
     this.setSelection(DatePart.Month);
 

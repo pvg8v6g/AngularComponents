@@ -1,3 +1,6 @@
-<mat-icon [ngClass]="this.disabled ? 'icon_disabled' : 'icon'">
-  {{this.iconType}}
-</mat-icon>
+<button mat-icon-button>
+  <mat-icon [ngClass]="this.disabled ? 'icon_disabled' : 'icon'"
+            [matTooltip]="this.tooltip">
+    {{this.iconType}}
+  </mat-icon>
+</button>

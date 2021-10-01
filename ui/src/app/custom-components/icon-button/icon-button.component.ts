@@ -20,6 +20,7 @@ export class IconButtonComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() iconType: IconType;
   @Input() disabled: boolean = false;
   @Input() helloWorld: string = 'false';
+  @Input() tooltip: string;
 
   private onDestroy = new Subject<void>();
 
