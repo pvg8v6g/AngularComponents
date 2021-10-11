@@ -1,0 +1,26 @@
+.table-non-selected-row:nth-child(even) {
+  background-color: #fcfcfc;
+}
+
+.table-non-selected-row:nth-child(even):hover {
+  background-color: #d2d2d2;
+}
+
+.table-non-selected-row:nth-child(odd):hover {
+  background-color: #d2d2d2;
+}
+
+.table-selected-row {
+  background: #c2c2c2;
+}
+
+.table-row-disabled {
+  opacity: 0.5;
+  user-select: none;
+  background: transparent;
+}
+
+.row {
+  cursor: pointer;
+  user-select: none;
+}

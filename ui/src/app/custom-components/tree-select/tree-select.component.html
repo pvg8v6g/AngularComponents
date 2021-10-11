@@ -1,0 +1,41 @@
+<!--&lt;!&ndash;<p-treeTable [value]="this.internalDataSource">&ndash;&gt;-->
+<!--&lt;!&ndash;  <ng-template pTemplate="header">&ndash;&gt;-->
+<!--&lt;!&ndash;    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;      <th *ngFor="let headerLabel of this.headerLabels">&ndash;&gt;-->
+<!--&lt;!&ndash;        {{headerLabel}}&ndash;&gt;-->
+<!--&lt;!&ndash;      </th>&ndash;&gt;-->
+<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;  </ng-template>&ndash;&gt;-->
+<!--&lt;!&ndash;  <ng-template pTemplate="body" let-rowNode let-rowData="rowData">&ndash;&gt;-->
+<!--&lt;!&ndash;    <tr [ttRow]="rowNode">&ndash;&gt;-->
+<!--&lt;!&ndash;      <td>&ndash;&gt;-->
+<!--&lt;!&ndash;        <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>&ndash;&gt;-->
+<!--&lt;!&ndash;        {{this.getMainColumnText(rowNode)}}&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash;        {{rowData[this.headerIds[0]]}}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;      <td *ngFor="let headerId of this.headerIds | slice:1">&ndash;&gt;-->
+<!--&lt;!&ndash;        {{this.getSubColumnText(rowData, headerId)}}&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash;        {{rowData[headerId]}}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      </td>&ndash;&gt;-->
+<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;  </ng-template>&ndash;&gt;-->
+<!--&lt;!&ndash;</p-treeTable>&ndash;&gt;-->
+<!--<p-treeTable [value]="this.internalDataSource"-->
+<!--             [columns]="this.columns">-->
+<!--  <ng-template pTemplate="header" let-columns>-->
+<!--    <tr>-->
+<!--      <th *ngFor="let col of columns">-->
+<!--        {{col.name}}-->
+<!--      </th>-->
+<!--    </tr>-->
+<!--  </ng-template>-->
+<!--  <ng-template pTemplate="body" let-rowNode let-columns="columns">-->
+<!--    <tr>-->
+<!--      <td *ngFor="let col of columns; let i = index">-->
+<!--        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>-->
+<!--        {{this.getColumnText(rowNode, col)}}-->
+<!--        &lt;!&ndash;        {{rowData[col.key]}}&ndash;&gt;-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--  </ng-template>-->
+<!--</p-treeTable>-->

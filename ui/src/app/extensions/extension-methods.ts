@@ -1,4 +1,5 @@
 import {Common, sortAlphaNum} from "./common";
+import {map} from "rxjs/operators";
 
 export {};
 
@@ -98,6 +99,9 @@ declare global {
     distinctBy<K>(mapper: (element: T) => K): T[];
 
     count(mapper: (element: T) => boolean): number;
+
+    any(mapper?: (element: T) => boolean);
+
   }
 
   // endregion
@@ -181,6 +185,13 @@ Array.prototype.count = function <T>(mapper: (element: T) => boolean): number {
   const clone: T[] = Common.deepCopy(this);
   const filter = clone.filter(mapper);
   return filter.length;
+}
+
+Array.prototype.any = function <T>(mapper?: (element: T) => boolean): boolean {
+  const clone: T[] = Common.deepCopy(this);
+  if (mapper == null) return clone.length > 0;
+  const filter = clone.filter(mapper);
+  return filter.length > 0;
 }
 
 // endregion

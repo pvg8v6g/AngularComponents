@@ -2,6 +2,14 @@ import {Component, DoCheck, EventEmitter, Input, OnInit, Output, ViewChild} from
 import "../../extensions/extension-methods";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort, Sort} from "@angular/material/sort";
+import {Common} from "../../extensions/common";
+import {IconType} from "../icon-button/icon-button.component";
+
+// region Interfaces
+
+export declare type SearchStyle = 'old janky version' | 'shiny new version';
+
+// endregion
 
 @Component({
   selector: 'app-table-select',
@@ -32,15 +40,33 @@ export class TableSelectComponent<T> implements OnInit, DoCheck {
 
   // endregion
 
+  // region Data Source
+
+  private _dataSource: T[];
+
+  @Input() set dataSource(source: T[]) {
+    this._dataSource = source;
+    this.filteredList = Common.deepCopy(this.dataSource);
+    this.searchFilterChange();
+  }
+
+  get dataSource(): T[] {
+    return this._dataSource;
+  }
+
+  // endregion
+
   @Input() width: string = '100%';
   @Input() height: string = '100%';
-  @Input() dataSource: T[];
   @Input() headerIds: string[];
   @Input() headerLabels: string[];
   @Input() searchPropertyNames: string[];
   @Input() idPropertyName: string;
   @Input() canSort: boolean = true;
+  @Input() disabled: boolean = false;
   @Input() searchLabel = 'Search Table';
+  @Input() searchStyle: SearchStyle = 'shiny new version';
+  @Input() builtInSearch: boolean = true;
 
   internalDataSource: MatTableDataSource<T>;
   searchText: string;
@@ -67,7 +93,6 @@ export class TableSelectComponent<T> implements OnInit, DoCheck {
       this.headerLabels = ['Name'];
     }
 
-    this.filteredList = this.dataSource;
     this.populateDataSource();
   }
 
@@ -87,11 +112,6 @@ export class TableSelectComponent<T> implements OnInit, DoCheck {
 
   // region Event Handlers
 
-  clearSearch() {
-    this.searchText = '';
-    this.filteredList = this.dataSource;
-  }
-
   onSortData(sort: Sort) {
     if (!this.canSort) return;
 
@@ -99,18 +119,27 @@ export class TableSelectComponent<T> implements OnInit, DoCheck {
     switch (sort.direction) {
       case "":
       case "asc":
-        data = data.orderBy(x => x.hasOwnProperty(sort.active) ? x[sort.active] : x).toArray();
+        data = data.orderBy(x => x[sort.active]).toArray();
         break;
       case "desc":
-        data = data.orderByDescending(x => x.hasOwnProperty(sort.active) ? x[sort.active] : x).toArray();
+        data = data.orderByDescending(x => x[sort.active]).toArray();
         break;
     }
 
-    this.filteredList = data;
+    this.filteredList = Common.deepCopy(data);
+  }
+
+  clearSearch() {
+    this.searchText = '';
+    this.filteredList = Common.deepCopy(this.dataSource);
   }
 
   searchFilterChange() {
-    if (this.searchText == '') this.filteredList = this.dataSource;
+    if (this.dataSource == null || this.dataSource.length < 1 || !this.searchText?.hasValue()) {
+      this.filteredList = Common.deepCopy(this.dataSource);
+      return;
+    }
+
     if (this.searchPropertyNames == null || this.searchPropertyNames.length < 1) {
       let l: T[] = [];
       l = l.concat(this.dataSource.filter(x => x?.toString()?.toLowerCase().includes(this.searchText?.toLowerCase())));
@@ -123,7 +152,7 @@ export class TableSelectComponent<T> implements OnInit, DoCheck {
       filtered = filtered.concat(this.dataSource.filter(x => x.hasOwnProperty(name) ? x[name].toString().toLowerCase().includes(this.searchText.toLowerCase()) : x.toString()));
     }
 
-    this.filteredList = filtered;
+    this.filteredList = Common.deepCopy(filtered);
   }
 
   selectedRow(newSelectedValue: T): boolean {
@@ -143,7 +172,7 @@ export class TableSelectComponent<T> implements OnInit, DoCheck {
     return typeof row == "boolean";
   }
 
-  checkboxStyle(row: any): string {
+  checkboxStyle(row: any): IconType {
     return row ? 'check_circle' : 'highlight_off';
   }
 

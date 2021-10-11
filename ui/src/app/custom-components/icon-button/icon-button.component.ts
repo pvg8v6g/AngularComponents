@@ -1,10 +1,10 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Subject, timer} from "rxjs";
 import {takeUntil, tap} from "rxjs/operators";
 
 // region Interface
 
-export declare type IconType = 'home' | 'menu' | 'close' | 'add' | 'remove' | 'check_circle' | 'highlight_off';
+export declare type IconType = 'home' | 'menu' | 'close' | 'add' | 'remove' | 'check_circle' | 'highlight_off' | 'build' | 'expand_more' | 'chevron_right';
 
 // endregion
 
@@ -13,7 +13,7 @@ export declare type IconType = 'home' | 'menu' | 'close' | 'add' | 'remove' | 'c
   templateUrl: './icon-button.component.html',
   styleUrls: ['./icon-button.component.scss']
 })
-export class IconButtonComponent implements OnInit, OnDestroy, AfterViewInit {
+export class IconButtonComponent implements OnInit, OnDestroy {
 
   // region Fields
 
@@ -21,6 +21,8 @@ export class IconButtonComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() disabled: boolean = false;
   @Input() helloWorld: string = 'false';
   @Input() tooltip: string;
+  @Input() useMatButton: boolean = false;
+  @Input() readonly: boolean = false;
 
   private onDestroy = new Subject<void>();
 
@@ -41,9 +43,6 @@ export class IconButtonComponent implements OnInit, OnDestroy, AfterViewInit {
         this.ref.markForCheck();
       }), takeUntil(this.onDestroy))
       .subscribe();
-  }
-
-  ngAfterViewInit(): void {
   }
 
   ngOnDestroy() {

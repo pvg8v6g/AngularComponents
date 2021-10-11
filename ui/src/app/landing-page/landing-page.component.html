@@ -1,10 +1,10 @@
-<app-stack-panel spacing="30px"
-                 width="50%"
-                 margin_top="30px">
+<app-stack-panel spacing="50px"
+                 marginTop="30px"
+                 [width]="'100%'"
+                 style="overflow: auto;">
 
   <app-stack-panel orientation="horizontal"
-                   spacing="30px"
-                   [disabled]="true">
+                   spacing="30px">
     <app-icon-button iconType="home"
                      (click)="this.homeAction()"
                      tooltip="Home">
@@ -32,6 +32,10 @@
     <app-icon-button iconType="highlight_off"
                      (click)="this.offAction()"
                      tooltip="Not Checked">
+    </app-icon-button>
+    <app-icon-button iconType="build"
+                     (click)="this.buildAction()"
+                     tooltip="Wrench">
     </app-icon-button>
   </app-stack-panel>
 
@@ -76,5 +80,19 @@
                     [(selectedItem)]="this.selectedTableValue"
                     (selectedItemChange)="this.tableSelection()">
   </app-table-select>
+
+  <app-stack-panel spacing="5px">
+    <button mat-raised-button
+            (click)="this.getCheckboxValues()"
+            style="height: 40px; align-self: center;"
+            color="primary">
+      Get Checkbox Values
+    </button>
+    <app-primeng-table [columns]="[{key: 'name', name: 'Name'}, {key: 'size', name: 'Size'}, {key: 'type', name: 'Type', columnType: 'interactive textbox'}]"
+                       [dataSource]="this.primengSource"
+                       [primaryKey]="'name'"
+                       [(textBoxDataSource)]="this.textBoxSource">
+    </app-primeng-table>
+  </app-stack-panel>
 
 </app-stack-panel>

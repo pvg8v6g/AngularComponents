@@ -8,91 +8,93 @@ export declare type Alignment = 'start' | 'end';
 // endregion
 
 @Component({
-    selector: 'app-stack-panel',
-    templateUrl: './stack-panel.component.html',
-    styleUrls: ['./stack-panel.component.scss']
+  selector: 'app-stack-panel',
+  templateUrl: './stack-panel.component.html',
+  styleUrls: ['./stack-panel.component.scss']
 })
 export class StackPanelComponent implements OnInit, AfterViewInit {
 
-    // region Fields
+  // region Fields
 
-    @ViewChild('root') root: ElementRef<HTMLElement>;
+  @ViewChild('root') root: ElementRef<HTMLElement>;
 
-    @Input() spacing: string;
-    @Input() width: string;
-    @Input() height: string;
-    @Input() background: string;
-    @Input() margin_bottom: string;
-    @Input() margin_left: string;
-    @Input() margin_right: string;
-    @Input() margin_top: string;
-    @Input() orientation: Orientation = 'vertical';
-    @Input() alignment: Alignment = 'start';
+  @Input() spacing: string = '0px';
+  @Input() width: string;
+  @Input() height: string;
+  @Input() background: string;
+  @Input() marginBottom: string;
+  @Input() marginLeft: string;
+  @Input() marginRight: string;
+  @Input() marginTop: string;
+  @Input() orientation: Orientation = 'vertical';
+  @Input() alignment: Alignment = 'start';
 
-    private _disabled: boolean = false;
-    _orientation: string = 'column nowrap';
-    _alignment: string = 'flex-start';
+  // private _disabled: boolean = false;
+  _orientation: string = 'column nowrap';
+  _alignment: string = 'flex-start';
 
-    @Input() set disabled(value: boolean) {
-        this._disabled = value;
-        this.disableChildren(this.disabled);
+  // @Input() set disabled(value: boolean) {
+  //   this._disabled = value;
+  //   if (this.disabled) this.disableElement(this.root?.nativeElement);
+  // }
+  //
+  // get disabled(): boolean {
+  //   return this._disabled;
+  // }
+
+  // endregion
+
+  // region Constructor
+
+  constructor() {
+  }
+
+  // endregion
+
+  // region Overrides
+
+  ngOnInit(): void {
+    switch (this.orientation) {
+      case "horizontal":
+        this._orientation = 'row nowrap';
+        break;
+      case "vertical":
+        this._orientation = 'column nowrap';
+        break;
     }
 
-    get disabled(): boolean {
-        return this._disabled;
+    switch (this.alignment) {
+      case "start":
+        this._alignment = 'flex-start';
+        break;
+      case "end":
+        this._alignment = 'flex-end';
+        break;
     }
+  }
 
-    // endregion
+  ngAfterViewInit(): void {
+    // if (this.disabled) this.disableElement(this.root?.nativeElement);
+  }
 
-    // region Constructor
+  // endregion
 
-    constructor() {
-    }
+  // region Private Methods
 
-    // endregion
+  private disableElement(element: HTMLElement) {
+    // if (element == null) return;
+    // element?.setAttribute('disabled', this.disabled ? 'true' : 'false');
+    //
+    // if (element.children == null) return;
+    // const children: HTMLElement[] = Array.prototype.slice.call(element?.children);
+    // children.forEach(value => this.disableElement(value));
+  }
 
-    // region Overrides
+  // endregion
 
-    ngOnInit(): void {
-        switch (this.orientation) {
-            case "horizontal":
-                this._orientation = 'row nowrap';
-                break;
-            case "vertical":
-                this._orientation = 'column nowrap';
-                break;
-        }
-
-        switch (this.alignment) {
-            case "start":
-                this._alignment = 'flex-start';
-                break;
-            case "end":
-                this._alignment = 'flex-end';
-                break;
-        }
-    }
-
-    ngAfterViewInit(): void {
-        this.disableChildren(this.disabled);
-    }
-
-    // endregion
-
-    // region Private Methods
-
-    private disableChildren(value: boolean) {
-        const dom = this.root?.nativeElement?.children;
-        if (dom == null) return;
-        const list: Element[] = [].slice.call(dom);
-        list.filter(x => x['disabled'] != null).forEach(x => x['disabled'] = value);
-    }
-
-    // endregion
-
-    // region Event Handlers
+  // region Event Handlers
 
 
-    // endregion
+  // endregion
 
 }

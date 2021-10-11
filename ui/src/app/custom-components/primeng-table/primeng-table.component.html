@@ -1,0 +1,47 @@
+<p-treeTable [value]="this.internalDataSource">
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let column of this.columns">
+        {{column.name}}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body"
+               let-rowNode
+               let-rowData="rowData">
+    <tr [ttRow]="rowNode">
+      <td *ngFor="let column of this.columns; let i = index">
+        <app-stack-panel orientation="horizontal">
+          <p-treeTableToggler [rowNode]="rowNode"
+                              *ngIf="i == 0">
+          </p-treeTableToggler>
+          <div [ngSwitch]="column.columnType"
+               style="align-self: center;">
+            <mat-label *ngSwitchCase="'text or number'">{{rowData[column.key]}}</mat-label>
+            <div *ngSwitchCase="'true/false'">
+              <app-icon-button *ngIf="this.valueIsBoolean(rowData[column.key])"
+                               [iconType]="rowData[column.key] ? 'check_circle' : 'highlight_off'"
+                               [useMatButton]="true"
+                               [readonly]="true">
+              </app-icon-button>
+              <mat-label *ngIf="!this.valueIsBoolean(rowData[column.key])">{{rowData[column.key]}}</mat-label>
+            </div>
+            <mat-checkbox *ngSwitchCase="'interactive checkbox'"
+                          [ngModel]="this.getCheckboxData(rowData[this.primaryKey])"
+                          (change)="this.changeCheckboxValue(rowData[this.primaryKey], $event.checked)">
+            </mat-checkbox>
+            <div *ngSwitchCase="'interactive textbox'">
+              <mat-form-field>
+                <input class="new-input-element"
+                       [(ngModel)]="this.getTextBoxData(rowData[this.primaryKey])"
+                       (ngModelChange)="this.changeTextBoxValue(rowData[this.primaryKey], $event)"
+                       matInput
+                       type="text">
+              </mat-form-field>
+            </div>
+          </div>
+        </app-stack-panel>
+      </td>
+    </tr>
+  </ng-template>
+</p-treeTable>

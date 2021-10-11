@@ -23,6 +23,12 @@ import {MatSortModule} from "@angular/material/sort";
 import {RadioGroupComponent} from "./radio-group/radio-group.component";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {TreeSelectComponent} from "./tree-select/tree-select.component";
+import {TreeTableModule} from "primeng/treetable";
+import {AnotherTreeSelectComponent} from "./another-tree-select/another-tree-select.component";
+import {MatTreeModule} from "@angular/material/tree";
+import {PrimeNGTableComponent} from "./primeng-table/primeng-table.component";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -31,7 +37,10 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     TableSelectComponent,
     ProgressBarComponent,
     IconButtonComponent,
-    RadioGroupComponent
+    RadioGroupComponent,
+    TreeSelectComponent,
+    AnotherTreeSelectComponent,
+    PrimeNGTableComponent
   ],
     imports: [
         SequenceModule,
@@ -52,7 +61,10 @@ import {MatTooltipModule} from "@angular/material/tooltip";
         MatTableModule,
         MatSortModule,
         MatRadioModule,
-        MatTooltipModule
+        MatTooltipModule,
+        TreeTableModule,
+        MatTreeModule,
+        MatCheckboxModule
     ],
   providers: [
     MatDatepickerModule,
@@ -64,7 +76,10 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     ProgressBarComponent,
     IconButtonComponent,
     TableSelectComponent,
-    RadioGroupComponent
+    RadioGroupComponent,
+    TreeSelectComponent,
+    AnotherTreeSelectComponent,
+    PrimeNGTableComponent
   ],
 })
 export class CustomComponentsModule {

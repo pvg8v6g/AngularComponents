@@ -1,19 +1,34 @@
 <app-stack-panel spacing="0.5vh">
-  <mat-form-field>
+  <mat-form-field *ngIf="this.searchStyle == 'shiny new version' && this.builtInSearch">
     <mat-label>{{this.searchLabel}}</mat-label>
     <app-stack-panel orientation="horizontal"
                      spacing="5px">
-      <input [(ngModel)]="this.searchText"
+      <input class="new-input-element"
+             [(ngModel)]="this.searchText"
              (ngModelChange)="this.searchFilterChange()"
              matInput
              type="text">
-      <button mat-button
-              (click)="this.clearSearch()">
-        Clear
-      </button>
+      <app-icon-button iconType="close"
+                       [useMatButton]="true"
+                       (click)="this.clearSearch()">
+      </app-icon-button>
     </app-stack-panel>
   </mat-form-field>
-  <div style="overflow: auto;"
+  <app-stack-panel orientation="horizontal"
+                   spacing="10px"
+                   *ngIf="this.searchStyle == 'old janky version' && this.builtInSearch">
+    <input class="search-bar custom-mat-input-element"
+           matInput
+           [(ngModel)]="searchText"
+           (ngModelChange)="this.searchFilterChange()"
+           [placeholder]="this.searchLabel">
+    <button class="main-button-white main-button"
+            (click)="this.clearSearch()"
+            style="align-self: center; vert-align: middle;">
+      Clear
+    </button>
+  </app-stack-panel>
+  <div [style.overflow]="this.disabled ? 'hidden' : 'auto'"
        [style.width]="this.width"
        [style.height]="this.height">
     <mat-table matSort
@@ -21,28 +36,47 @@
                [dataSource]="this.internalDataSource">
       <div *ngFor="let header of this.headerIds; index as i">
         <ng-container [matColumnDef]="header">
-          <mat-header-cell mat-sort-header
-                           style="user-select: none;"
-                           *matHeaderCellDef>
-            {{this.headerLabels[i]}}
-          </mat-header-cell>
+          <div *ngIf="this.canSort">
+            <div *ngIf="this.disabled">
+              <mat-header-cell *matHeaderCellDef
+                               style="user-select: none;">
+                {{this.headerLabels[i]}}
+              </mat-header-cell>
+            </div>
+            <div *ngIf="!this.disabled">
+              <mat-header-cell mat-sort-header
+                               style="user-select: none;"
+                               *matHeaderCellDef>
+                {{this.headerLabels[i]}}
+              </mat-header-cell>
+            </div>
+          </div>
+          <div *ngIf="!this.canSort">
+            <mat-header-cell *matHeaderCellDef
+                             style="user-select: none;">
+              {{this.headerLabels[i]}}
+            </mat-header-cell>
+          </div>
+
           <mat-cell *matCellDef="let element"
                     [ngClass]="!this.isCheckbox(element[header]) ? '' : 'check-icon'">
-            <mat-label *ngIf="!this.isCheckbox(element[header])">
+            <mat-label *ngIf="!this.isCheckbox(element[header])"
+                       style="user-select: none;"
+                       [ngClass]="this.disabled ? 'table-row-disabled' : ''">
               {{this.getStringValue(element, header)}}
             </mat-label>
-            <mat-icon *ngIf="this.isCheckbox(element[header])">
-              {{this.checkboxStyle(element[header])}}
-            </mat-icon>
+            <app-icon-button *ngIf="this.isCheckbox(element[header])"
+                             [iconType]="this.checkboxStyle(element[header])" [disabled]="this.disabled">
+            </app-icon-button>
           </mat-cell>
         </ng-container>
       </div>
 
       <mat-header-row *matHeaderRowDef="this.headerIds; sticky: true"></mat-header-row>
-      <mat-row style="cursor: pointer; user-select: none;"
+      <mat-row [style]="this.disabled ? '' : 'row'"
                *matRowDef="let row; columns: this.headerIds"
-               [ngClass]="this.selectedRow(row) ? 'table-selected-row' : 'table-non-selected-row'"
-               (click)="this.onTableSelectChange(row)">
+               [ngClass]="this.disabled ? 'table-row-disabled' : this.selectedRow(row) ? 'table-selected-row' : 'table-non-selected-row'"
+               (click)="this.disabled ? $event.stopPropagation() : this.onTableSelectChange(row)">
       </mat-row>
     </mat-table>
   </div>

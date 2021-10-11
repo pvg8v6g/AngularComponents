@@ -1,6 +1,18 @@
-<button mat-icon-button>
-  <mat-icon [ngClass]="this.disabled ? 'icon_disabled' : 'icon'"
-            [matTooltip]="this.tooltip">
-    {{this.iconType}}
-  </mat-icon>
+<mat-icon [ngClass]="this.disabled ? 'icon_disabled' : 'icon'"
+          [matTooltip]="this.tooltip"
+          *ngIf="!this.useMatButton && !this.readonly">
+  {{this.iconType}}
+</mat-icon>
+
+<button matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        [disabled]="this.disabled"
+        *ngIf="this.useMatButton && !this.readonly">
+  <mat-icon class="icon">{{this.iconType}}</mat-icon>
 </button>
+
+<mat-icon class="icon"
+          *ngIf="this.readonly">
+  {{this.iconType}}
+</mat-icon>
